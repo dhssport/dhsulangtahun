@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DHS Birthday V1</title>
+
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Fredoka+One&family=Quicksand:wght@400;500;600;700&display=swap"
+        rel="stylesheet">
+
+    <!-- Canvas Confetti -->
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+
+    <!-- Font Awesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <!-- Custom Styles -->
+    <link rel="stylesheet" href="style.css">
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        'heading': ['"Fredoka One"', 'cursive'],
+                        'body': ['"Quicksand"', 'sans-serif'],
+                    },
+                    colors: {
+                        'pastel-pink': '#FFB7B2',
+                        'pastel-blue': '#AEC6CF',
+                        'bright-yellow': '#FDFD96',
+                        'soft-purple': '#C3B1E1',
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+
+<body
+    class="bg-gradient-to-br from-purple-50 to-pink-50 font-body text-gray-800 min-h-screen relative overflow-x-hidden selection:bg-pastel-pink selection:text-white">
+
+    <!-- Music Toggle -->
+    <button id="musicToggle"
+        class="fixed bottom-6 right-6 z-50 bg-white/80 backdrop-blur-md p-4 rounded-full shadow-lg hover:scale-110 transition-transform duration-300 border-2 border-pastel-pink animate-bounce-slow">
+        <i class="fas fa-music text-pastel-pink text-xl"></i>
+    </button>
+
+    <!-- Audio Element -->
+    <audio id="bgMusic" loop>
+        <source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" type="audio/mpeg">
+        Your browser does not support the audio element.
+    </audio>
+
+    <!-- Main Container -->
+    <main class="max-w-4xl mx-auto bg-white min-h-screen shadow-2xl relative overflow-hidden">
+
+        <!-- Floating Elements (Decorations) -->
+        <div
+            class="absolute top-10 -left-10 w-32 h-32 bg-pastel-pink rounded-full mix-blend-multiply filter blur-xl opacity-70 animate-blob">
+        </div>
+        <div
+            class="absolute top-10 -right-10 w-32 h-32 bg-pastel-blue rounded-full mix-blend-multiply filter blur-xl opacity-70 animate-blob animation-delay-2000">
+        </div>
+        <div
+            class="absolute -bottom-8 left-20 w-32 h-32 bg-bright-yellow rounded-full mix-blend-multiply filter blur-xl opacity-70 animate-blob animation-delay-4000">
+        </div>
+
+        <!-- Hero Section -->
+        <section class="relative pt-12 pb-8 px-6 text-center z-10">
+            <div
+                class="inline-block px-4 py-1 rounded-full bg-yellow-100 text-yellow-600 text-sm font-bold mb-4 transform -rotate-2">
+                YOU'RE INVITED!
+            </div>
+            <h1
+                class="font-heading text-5xl text-transparent bg-clip-text bg-gradient-to-r from-pink-500 to-purple-500 mb-2 drop-shadow-sm">
+                DHS<br>Birthday V1
+            </h1>
+            <p class="text-gray-500 mb-8 text-lg font-medium">Let's celebrate together!</p>
+
+            <!-- Countdown -->
+            <div id="countdown" class="flex justify-center gap-3 mb-8">
+                <!-- Days -->
+                <div
+                    class="bg-white/80 backdrop-blur border border-pink-100 p-3 rounded-2xl shadow-sm w-20 transform hover:-translate-y-1 transition duration-300">
+                    <span id="days" class="block font-heading text-2xl text-pink-500">00</span>
+                    <span class="text-xs text-gray-500 font-bold uppercase">Days</span>
+                </div>
+                <!-- Hours -->
+                <div
+                    class="bg-white/80 backdrop-blur border border-blue-100 p-3 rounded-2xl shadow-sm w-20 transform hover:-translate-y-1 transition duration-300 delay-75">
+                    <span id="hours" class="block font-heading text-2xl text-blue-500">00</span>
+                    <span class="text-xs text-gray-500 font-bold uppercase">Hours</span>
+                </div>
+                <!-- Minutes -->
+                <div
+                    class="bg-white/80 backdrop-blur border border-yellow-100 p-3 rounded-2xl shadow-sm w-20 transform hover:-translate-y-1 transition duration-300 delay-150">
+                    <span id="minutes" class="block font-heading text-2xl text-yellow-500">00</span>
+                    <span class="text-xs text-gray-500 font-bold uppercase">Mins</span>
+                </div>
+            </div>
+
+            <!-- Hero Image / Main Visual -->
+            <div
+                class="relative w-full aspect-square md:aspect-video rounded-3xl overflow-hidden shadow-lg border-4 border-white transform rotate-1 hover:rotate-0 transition duration-500 group">
+                <img src="https://images.unsplash.com/photo-1558636508-e0db3814bd1d?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80"
+                    alt="Birthday Party"
+                    class="w-full h-full object-cover group-hover:scale-110 transition duration-700">
+                <div class="absolute inset-0 bg-gradient-to-t from-black/30 to-transparent"></div>
+            </div>
+        </section>
+
+        <!-- Bento Grid Info -->
+        <section class="px-4 py-6 z-10 relative">
+            <h2 class="font-heading text-2xl text-center text-gray-700 mb-6">Party Details</h2>
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-3">
+                <!-- Date -->
+                <div class="bg-pink-50 p-4 rounded-3xl col-span-1 shadow-sm hover:shadow-md transition">
+                    <i class="far fa-calendar-alt text-2xl text-pink-500 mb-2"></i>
+                    <h3 class="font-bold text-gray-700">Date</h3>
+                    <p class="text-sm text-gray-600">February 15, 2026</p>
+                </div>
+
+                <!-- Time -->
+                <div class="bg-blue-50 p-4 rounded-3xl col-span-1 shadow-sm hover:shadow-md transition">
+                    <i class="far fa-clock text-2xl text-blue-500 mb-2"></i>
+                    <h3 class="font-bold text-gray-700">Time</h3>
+                    <p class="text-sm text-gray-600">19:00 WIB - End</p>
+                </div>
+
+                <!-- Location (Full Width) -->
+                <a href="https://goo.gl/maps/example" target="_blank"
+                    class="bg-yellow-50 p-4 rounded-3xl col-span-2 shadow-sm hover:shadow-md transition flex items-center justify-between group">
+                    <div>
+                        <i class="fas fa-map-marker-alt text-2xl text-yellow-500 mb-2"></i>
+                        <h3 class="font-bold text-gray-700">Location</h3>
+                        <p class="text-sm text-gray-600 group-hover:underline">DHS Private Lounge, Jakarta</p>
+                    </div>
+                    <div class="bg-white p-2 rounded-full text-yellow-500">
+                        <i class="fas fa-chevron-right"></i>
+                    </div>
+                </a>
+
+                <!-- Dress Code (Full Width) -->
+                <div
+                    class="bg-purple-50 p-4 rounded-3xl col-span-2 md:col-start-2 shadow-sm hover:shadow-md transition">
+                    <div class="flex items-center gap-3">
+                        <div class="bg-white p-2 rounded-full text-purple-500">
+                            <i class="fas fa-tshirt"></i>
+                        </div>
+                        <div>
+                            <h3 class="font-bold text-gray-700">Dress Code</h3>
+                            <p class="text-sm text-gray-600">Pastel Casual / Smart Casual</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Gift Box Section -->
+        <section class="px-6 py-8 relative z-10 text-center">
+            <div
+                class="bg-gradient-to-br from-white to-gray-50 border border-gray-100 p-8 rounded-[2rem] shadow-lg relative overflow-hidden">
+                <div id="giftContent" class="hidden animate-fade-in-up">
+                    <h3 class="font-heading text-2xl text-pink-500 mb-2">Surprise!</h3>
+                    <p class="text-gray-600 mb-4">Can't wait to see you there! 🎈</p>
+                    <div class="text-5xl mb-2">🎁</div>
+                </div>
+
+                <div id="giftClosed">
+                    <div class="text-6xl mb-4 animate-bounce hover:cursor-pointer" onclick="openGift()">🎁</div>
+                    <p class="text-gray-500 mb-4 font-medium">Tap the gift to open!</p>
+                    <button onclick="openGift()"
+                        class="bg-gray-800 text-white px-6 py-3 rounded-full font-bold shadow-lg hover:bg-black transition transform active:scale-95">
+                        Open Gift
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <!-- Gallery Section -->
+        <section class="pl-4 py-6 z-10 relative overflow-hidden">
+            <h2 class="font-heading text-2xl text-left text-gray-700 mb-4 pr-4">Sweet Memories</h2>
+            <!-- Snap Scroll Container -->
+            <div class="flex overflow-x-auto gap-4 pb-4 snap-x snap-mandatory pr-4 scrollbar-hide">
+                <div class="snap-center shrink-0 w-64 h-80 rounded-2xl overflow-hidden shadow-md">
+                    <img src="https://images.unsplash.com/photo-1533292686609-dd888f66cf80?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80"
+                        class="w-full h-full object-cover">
+                </div>
+                <div class="snap-center shrink-0 w-64 h-80 rounded-2xl overflow-hidden shadow-md">
+                    <img src="https://images.unsplash.com/photo-1513151233558-d860c5398176?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80"
+                        class="w-full h-full object-cover">
+                </div>
+                <div class="snap-center shrink-0 w-64 h-80 rounded-2xl overflow-hidden shadow-md">
+                    <img src="https://images.unsplash.com/photo-1496337589254-7e19d01cec44?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80"
+                        class="w-full h-full object-cover">
+                </div>
+            </div>
+        </section>
+
+        <!-- Digital Envelope (Kado) -->
+        <section class="px-6 py-6 z-10 relative">
+            <div class="bg-gray-800 text-white p-6 rounded-3xl shadow-xl text-center relative overflow-hidden">
+                <!-- Background Pattern -->
+                <div class="absolute top-0 right-0 w-32 h-32 bg-white/10 rounded-full -mr-16 -mt-16 blur-2xl"></div>
+
+                <h2 class="font-heading text-xl mb-4 text-white">Digital Gift</h2>
+                <div
+                    class="bg-white/10 backdrop-blur p-4 rounded-xl border border-white/20 mb-3 flex items-center justify-between">
+                    <div class="text-left">
+                        <p class="text-xs text-gray-300">Bank BCA</p>
+                        <p class="font-bold tracking-widest text-lg">123 456 7890</p>
+                        <p class="text-xs text-gray-300">a.n DHS User</p>
+                    </div>
+                    <button onclick="copyToClipboard('1234567890')"
+                        class="bg-white text-gray-800 p-2 rounded-lg hover:bg-gray-100 transition active:scale-90">
+                        <i class="far fa-copy"></i>
+                    </button>
+                </div>
+                <!-- E-wallet Example -->
+                <div
+                    class="bg-white/10 backdrop-blur p-4 rounded-xl border border-white/20 flex items-center justify-between">
+                    <div class="text-left">
+                        <p class="text-xs text-gray-300">Dana / Gopay</p>
+                        <p class="font-bold tracking-widest text-lg">0812 3456 7890</p>
+                    </div>
+                    <button onclick="copyToClipboard('081234567890')"
+                        class="bg-white text-gray-800 p-2 rounded-lg hover:bg-gray-100 transition active:scale-90">
+                        <i class="far fa-copy"></i>
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <!-- RSVP Form -->
+        <section class="px-6 pt-6 pb-24 z-10 relative">
+            <div class="bg-white border-2 border-pastel-pink p-6 rounded-[2rem] shadow-sm">
+                <h2 class="font-heading text-2xl text-center text-pink-500 mb-6">RSVP</h2>
+                <form id="rsvpForm" class="space-y-4">
+                    <div>
+                        <label class="block text-sm font-bold text-gray-700 mb-1">Name</label>
+                        <input type="text" id="guestName" placeholder="Your Name"
+                            class="w-full bg-gray-50 border border-gray-200 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-pink-300 transition"
+                            required>
+                    </div>
+                    <div>
+                        <label class="block text-sm font-bold text-gray-700 mb-1">Attendance</label>
+                        <select id="attendance"
+                            class="w-full bg-gray-50 border border-gray-200 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-pink-300 transition">
+                            <option value="Hadir">Yes, I'm Coming! 🥳</option>
+                            <option value="Maaf, Tidak Bisa Hadir">Sorry, Can't Make It 😢</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label class="block text-sm font-bold text-gray-700 mb-1">Wishes</label>
+                        <textarea id="wishes" placeholder="Write a wish..."
+                            class="w-full bg-gray-50 border border-gray-200 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-pink-300 transition h-24"></textarea>
+                    </div>
+                    <button type="submit"
+                        class="w-full bg-gradient-to-r from-pink-500 to-purple-500 text-white font-bold py-4 rounded-xl shadow-md hover:shadow-lg transform active:scale-98 transition">
+                        <i class="fab fa-whatsapp mr-2"></i> Send RSVP
+                    </button>
+                </form>
+            </div>
+        </section>
+
+        <!-- Bottom Branding -->
+        <footer class="absolute bottom-4 w-full text-center z-0 opacity-50">
+            <p class="text-xs text-gray-400">Created with ❤️ for DHS</p>
+        </footer>
+    </main>
+
+    <!-- JS -->
+    <script src="script.js"></script>
+</body>
+
+</html>
